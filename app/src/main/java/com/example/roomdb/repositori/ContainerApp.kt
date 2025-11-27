@@ -1,7 +1,7 @@
 package com.example.roomdb.repositori
 
 import android.content.Context
-import com.example.myroomsatu.room.DatabaseSiswa // Asumsi DatabaseSiswa ada di package room
+import com.example.roomdb.room.DatabaseSiswa
 
 interface ContainerApp {
     val repositoriSiswa: RepositoriSiswa
