@@ -1,7 +1,7 @@
 package com.example.roomdb.room
 
-import androidx.room.Entity;
-import androidx.room.PrimaryKey;
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 
 @Entity(tableName = "tblSiswa")
 data class Siswa(
@@ -9,6 +9,5 @@ data class Siswa(
     val id : Int = 0,
     val nama : String,
     val alamat : String,
-    val telpon : String,
-
-    )
+    val telpon : String
+)
