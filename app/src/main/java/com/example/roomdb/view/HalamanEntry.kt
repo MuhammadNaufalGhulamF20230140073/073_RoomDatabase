@@ -42,15 +42,18 @@ fun EntrySiswaScreen(
 ) {
     val coroutineScope = rememberCoroutineScope()
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
-    Scaffold (
-        modifier = modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
+
+    Scaffold(
+        modifier = modifier,
         topBar = {
             SiswaTopAppBar(
-                title = stringResource(DestinasiEntry.titleRes),
+                title = stringResource(id = DestinasiEntry.titleRes),
                 canNavigateBack = true,
-                scrollBehavior = scrollBehavior
+                scrollBehavior = scrollBehavior,
+                navigateUp = navigateBack
             )
-        }) { innerPadding ->
+        }
+    ) { innerPadding ->
         EntrySiswaBody(
             uiStateSiswa = viewModel.uiStateSiswa,
             onSiswaValueChange = viewModel::updateUiState,
@@ -76,8 +79,10 @@ fun EntrySiswaBody(
     modifier: Modifier = Modifier
 ) {
     Column(
-        verticalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.padding_large)),
-        modifier = modifier.padding(dimensionResource(id = R.dimen.padding_medium))
+        verticalArrangement = Arrangement.spacedBy(
+            space = dimensionResource(id = R.dimen.padding_large)
+        ),
+        modifier = modifier.padding(all = dimensionResource(id = R.dimen.padding_medium))
     ) {
         FormInputSiswa(
             detailSiswa = uiStateSiswa.detailSiswa,
@@ -90,7 +95,7 @@ fun EntrySiswaBody(
             shape = MaterialTheme.shapes.small,
             modifier = Modifier.fillMaxWidth()
         ) {
-            Text(stringResource(R.string.btn_submit))
+            Text(text = stringResource(id = R.string.submit))
         }
     }
 }
@@ -102,32 +107,34 @@ fun FormInputSiswa(
     modifier: Modifier = Modifier,
     onValueChange: (DetailSiswa) -> Unit = {},
     enabled: Boolean = true
-){
+) {
     Column(
         modifier = modifier,
-        verticalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.padding_medium))
-    ){
+        verticalArrangement = Arrangement.spacedBy(
+            space = dimensionResource(id = R.dimen.padding_small)
+        )
+    ) {
         OutlinedTextField(
             value = detailSiswa.nama,
-            onValueChange = {onValueChange(detailSiswa.copy(nama=it)) },
-            label = { Text(stringResource(R.string.nama)) },
+            onValueChange = { onValueChange(detailSiswa.copy(nama = it)) },
+            label = { Text(text = stringResource(id = R.string.nama_siswa)) },
             modifier = Modifier.fillMaxWidth(),
             enabled = enabled,
             singleLine = true
         )
         OutlinedTextField(
             value = detailSiswa.alamat,
-            onValueChange = {onValueChange(detailSiswa.copy(alamat=it))},
-            label = { Text(stringResource(R.string.alamat)) },
+            onValueChange = { onValueChange(detailSiswa.copy(alamat = it)) },
+            label = { Text(text = stringResource(id = R.string.alamat_siswa)) },
             modifier = Modifier.fillMaxWidth(),
             enabled = enabled,
             singleLine = true
         )
         OutlinedTextField(
             value = detailSiswa.telpon,
-            onValueChange = {onValueChange(detailSiswa.copy(telpon = it))},
+            onValueChange = { onValueChange(detailSiswa.copy(telpon = it)) },
+            label = { Text(text = stringResource(id = R.string.telpon_siswa)) },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-            label = { Text(text = stringResource(R.string.telpon)) },
             modifier = Modifier.fillMaxWidth(),
             enabled = enabled,
             singleLine = true
@@ -135,13 +142,14 @@ fun FormInputSiswa(
 
         if (enabled) {
             Text(
-                text = stringResource(R.string.required_field),
+                text = stringResource(id = R.string.required_fields),
                 modifier = Modifier.padding(start = dimensionResource(id = R.dimen.padding_medium))
             )
         }
+
         HorizontalDivider(
-            modifier = Modifier.padding(bottom = dimensionResource(R.dimen.padding_medium)),
-            thickness = dimensionResource(R.dimen.padding_small),
+            modifier = Modifier.padding(bottom = dimensionResource(id = R.dimen.padding_medium)),
+            thickness = dimensionResource(id = R.dimen.divider_thickness),
             color = Color.Blue
         )
     }
